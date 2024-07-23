@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: terminal
+  name: terminal
+spec:
+  # https://github.com/mborne/terminal
+  containers:
+  - image: "ghcr.io/mborne/terminal:latest"
+    name: terminal
+    securityContext:
+      capabilities:
+        drop:
+        - ALL
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: false
+      runAsNonRoot: true
+      runAsUser: 1000
+    resources:
+      limits:
+        cpu: 500m
+        memory: 64Mi
+      requests:
+        cpu: 100m
+        memory: 64Mi
+  restartPolicy: Never
