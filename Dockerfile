@@ -1,17 +1,33 @@
-FROM alpine:3.18
+FROM alpine:3.21
 
-# telnet
-RUN apk add busybox-extras
+# create user "debug" in group "debug"
+RUN addgroup \
+    --gid "1000" \
+    debug \
+&&  adduser \
+    --disabled-password \
+    --gecos "" \
+    --ingroup "debug" \
+    --uid "1000" \
+    debug
 
-RUN apk add openssh-client
+# telnet and co.
+RUN apk add --no-cache busybox-extras
 
-RUN apk add curl
-RUN apk add wget
-RUN apk add iputils-ping
+RUN apk add --no-cache openssh-client
+
+# host
+RUN apk add --no-cache iputils-ping
+
 # dig and host
-RUN apk add bind-tools
-RUN apk add jq
+RUN apk add --no-cache bind-tools
 
+# HTTP debug
+RUN apk add --no-cache curl wget
+RUN apk add --no-cache jq
+
+VOLUME /home/debug
+WORKDIR /home/debug
+
+USER debug
 CMD ["/bin/sh","-c","trap : TERM INT; sleep 9999999999d & wait"]
-
-

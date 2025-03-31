@@ -14,9 +14,12 @@ spec:
         drop:
         - ALL
       allowPrivilegeEscalation: false
-      readOnlyRootFilesystem: false
+      readOnlyRootFilesystem: true
       runAsNonRoot: true
       runAsUser: 1000
+    volumeMounts:
+      - name: data
+        mountPath: /home/debug
     resources:
       limits:
         cpu: 500m
@@ -24,4 +27,8 @@ spec:
       requests:
         cpu: 100m
         memory: 64Mi
+  volumes:
+    - name: data
+      emptyDir:
+        sizeLimit: 1Gi
   restartPolicy: Never
