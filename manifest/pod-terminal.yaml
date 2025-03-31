@@ -7,8 +7,8 @@ metadata:
 spec:
   # https://github.com/mborne/terminal
   containers:
-  - image: "ghcr.io/mborne/terminal:latest"
-    name: terminal
+  - name: terminal
+    image: "ghcr.io/mborne/terminal:v0.2.0"
     securityContext:
       capabilities:
         drop:

@@ -14,6 +14,7 @@ RUN addgroup \
 # telnet and co.
 RUN apk add --no-cache busybox-extras
 
+# ssh
 RUN apk add --no-cache openssh-client
 
 # host
@@ -25,6 +26,9 @@ RUN apk add --no-cache bind-tools
 # HTTP debug
 RUN apk add --no-cache curl wget
 RUN apk add --no-cache jq
+
+# PostgreSQL (psql and pg_dump)
+RUN apk add --no-cache postgresql-client
 
 VOLUME /home/debug
 WORKDIR /home/debug
